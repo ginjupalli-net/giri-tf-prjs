@@ -1,0 +1,10 @@
+alias ti='terraform init'
+alias tp='terraform plan'
+alias ta='terraform apply -auto-approve'
+alias ts='terraform show'
+alias td='terraform destroy -auto-approve'
+alias tsl='terraform show list'
+alias ts='terraform show'
+alias ll='ls -ltra'
+alias tf=' terraform'
+

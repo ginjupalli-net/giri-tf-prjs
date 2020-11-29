@@ -1,0 +1,25 @@
+node {
+    def MVN_HOME= tool name: "vgmaven"
+    stage('CheckoutCode')
+    {
+    git branch: 'development', credentialsId: 'gvgiri-github', url: 'https://github.com/ginjupalli-net/maven-web-application'
+    }
+    stage('Build')
+    { sh "${MVN_HOME}/bin/mvn clean package"
+    }
+    stage('ExecuteSonarQubeReport')
+		{
+		sh "${MVN_HOME}/bin/mvn sonar:sonar"
+		
+		}
+	stage('UploadArtifactsIntoNexus')
+		{
+		sh "${MVN_HOME}/bin/mvn deploy"
+		# nexus login details are in pom.xml and maven settings
+		}
+	stage('DeployappToTomcatServer')
+		 sshagent(['Jenkins2-tomcat-cred']) {
+		  sh "scp  target/maven-web-application.war ubuntu@18.234.130.79:/opt/apache-tomcat-9.0.39/webapps/"
+		  }
+		
+}

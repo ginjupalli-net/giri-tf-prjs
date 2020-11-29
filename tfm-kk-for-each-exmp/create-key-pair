@@ -1,0 +1,10 @@
+That's right, the key called jade has been created using the AWS CLI.
+
+
+The command used to create this key is 
+aws ec2 create-key-pair --endpoint http://aws:4566 --key-name jade --query 'KeyMaterial' \
+ --output text > /root/terraform-projects/project-jade/jade.pem.
+
+The private key is created in the same configuration directory we have been working on.
+
+

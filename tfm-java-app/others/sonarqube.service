@@ -1,0 +1,21 @@
+# copy the following to /etc/systemd/system/sonarqube.service
+# https://docs.sonarqube.org/latest/setup/operate-server/
+[Unit]
+Description=SonarQube service
+After=syslog.target network.target
+
+[Service]
+Type=simple
+User=sonar
+Group=sonar
+PermissionsStartOnly=true
+ExecStart=/usr/bin/nohup /usr/bin/java -Xms512m -Xmx512m -Djava.net.preferIPv4Stack=true -jar /opt/sonarqube-7.8/lib/sonar-application-7.8.jar
+StandardOutput=syslog
+LimitNOFILE=65536
+LimitNPROC=8192
+TimeoutStartSec=5
+Restart=always
+SuccessExitStatus=143
+
+[Install]
+WantedBy=multi-user.target
